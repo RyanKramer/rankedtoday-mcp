@@ -1,0 +1,31 @@
+[project]
+name = "rankedtoday-mcp"
+version = "0.1.0"
+description = "League of Legends MCP server — MMR estimation from LP flow, climb projections, KDA, hours played, and cognitive-readiness reference. No API key."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{ name = "Ranked Today", email = "hello@shouldiplayrankedtoday.com" }]
+keywords = ["mcp", "league-of-legends", "gaming", "esports", "ai", "agent"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Games/Entertainment",
+    "License :: OSI Approved :: MIT License",
+]
+dependencies = ["fastmcp>=2.0.0"]
+
+[project.urls]
+Homepage = "https://shouldiplayrankedtoday.com"
+Documentation = "https://shouldiplayrankedtoday.com/tools"
+Repository = "https://github.com/RyanKramer/rankedtoday-mcp"
+
+[project.scripts]
+rankedtoday-mcp = "rankedtoday_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/rankedtoday_mcp"]
