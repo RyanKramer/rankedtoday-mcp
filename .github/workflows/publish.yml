@@ -1,0 +1,51 @@
+# Publish to PyPI via Trusted Publishing (OIDC) — no API token stored anywhere.
+#
+# Setup, once, at https://pypi.org/manage/account/publishing/ :
+#   PyPI project name : <this package name>
+#   Owner             : RyanKramer
+#   Repository        : <this repo name>
+#   Workflow          : publish.yml
+#   Environment       : pypi
+#
+# Release: bump `version` in pyproject.toml, then push a matching tag:
+#   git tag v0.1.0 && git push origin v0.1.0
+name: Publish to PyPI
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build sdist and wheel
+        run: |
+          python -m pip install --upgrade build
+          python -m build
+      - name: Check metadata renders on PyPI
+        run: |
+          python -m pip install --upgrade twine
+          twine check dist/*
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write   # the OIDC token that replaces a stored API token
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1
