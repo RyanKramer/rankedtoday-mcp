@@ -1,10 +1,20 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.RyanKramer/rankedtoday-mcp",
-  "description": "League of Legends math and cognitive-readiness reference for AI agents — MMR estimation, climb projections, KDA, hours played. No API key required.",
-  "repository": { "url": "https://github.com/RyanKramer/rankedtoday-mcp", "source": "github" },
+  "description": "League of Legends math for AI agents: MMR estimation, climb projections, KDA, hours. No API key.",
+  "repository": {
+    "url": "https://github.com/RyanKramer/rankedtoday-mcp",
+    "source": "github"
+  },
   "version": "0.1.0",
   "packages": [
-    { "registryType": "pypi", "identifier": "rankedtoday-mcp", "version": "0.1.0", "transport": { "type": "stdio" } }
+    {
+      "registryType": "pypi",
+      "identifier": "rankedtoday-mcp",
+      "version": "0.1.0",
+      "transport": {
+        "type": "stdio"
+      }
+    }
   ]
 }
